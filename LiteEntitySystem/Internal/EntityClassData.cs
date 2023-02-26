@@ -73,7 +73,7 @@ namespace LiteEntitySystem.Internal
 
             TestOffset to = new TestOffset();
 
-            if (Utils.RefFieldValue<uint>(to, monoFieldOffset) == to.TestValue)
+            if (Type.GetType("Mono.Runtime") is not null && Utils.RefFieldValue<uint>(to, monoFieldOffset) == to.TestValue)
                 NativeFieldOffset = monoOffset;
             else if (Utils.RefFieldValue<uint>(to, dotnetFieldOffset) == to.TestValue)
                 NativeFieldOffset = dotnetOffset;

@@ -43,9 +43,10 @@ namespace LiteEntitySystem.Extensions
             return s.Value;
         }
         
-        private void SetNewString(ReadOnlySpan<byte> data)
+        private unsafe void SetNewString(ReadOnlySpan<byte> data)
         {
-            _string = Encoding.GetString(data);
+            fixed (byte* dataPtr = &data.GetPinnableReference())
+                _string = Encoding.GetString(dataPtr, data.Length);
         }
 
         public override unsafe void FullSyncRead(ReadOnlySpan<byte> dataSpan, ref int position)
